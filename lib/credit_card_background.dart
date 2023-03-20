@@ -49,7 +49,7 @@ class CardBackground extends StatelessWidget {
           Container(
             margin: EdgeInsets.all(padding),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(21),
               border: border,
               gradient: glassmorphismConfig != null
                   ? glassmorphismConfig!.gradient
@@ -79,7 +79,7 @@ class CardBackground extends StatelessWidget {
                     : screenHeight / 2),
             child: ClipRRect(
               clipBehavior: Clip.hardEdge,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(21),
               child: Container(
                 child: glassmorphismConfig != null
                     ? BackdropFilter(
@@ -114,7 +114,7 @@ class _GlassmorphicBorder extends StatelessWidget {
   _GlassmorphicBorder({
     required this.height,
     required this.width,
-  }) : _painter = _GradientPainter(strokeWidth: 2, radius: 10);
+  }) : _painter = _GradientPainter(strokeWidth: 2, radius: 21);
   final _GradientPainter _painter;
   final double width;
   final double height;
@@ -126,7 +126,7 @@ class _GlassmorphicBorder extends StatelessWidget {
       size: MediaQuery.of(context).size,
       child: Container(
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(21)),
         ),
         width: width,
         height: height,

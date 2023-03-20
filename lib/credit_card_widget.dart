@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/color_constants.dart';
 import 'package:flutter_credit_card/constants.dart';
-import 'package:flutter_credit_card/extension.dart';
 
 import 'credit_card_animation.dart';
 import 'credit_card_background.dart';
@@ -54,6 +54,7 @@ class CreditCardWidget extends StatefulWidget {
     this.frontCardBorder,
     this.backCardBorder,
     this.obscureInitialCardNumber = false,
+    this.cardName = '',
   }) : super(key: key);
 
   /// A string indicating number on the card.
@@ -145,6 +146,7 @@ class CreditCardWidget extends StatefulWidget {
   /// of the card at bottom right corner. If this is set to null then image
   /// shown automatically based on credit card number.
   final CardType? cardType;
+  final String cardName;
 
   /// Replaces credit card image with provided widget.
   final List<CustomCardTypeIcon> customCardTypeIcons;
@@ -327,10 +329,8 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     final TextStyle defaultTextStyle =
         Theme.of(context).textTheme.titleLarge!.merge(
               const TextStyle(
-                color: Colors.white,
-                fontFamily: 'halter',
+                color: AppColors.darkBlueGrey,
                 fontSize: 15,
-                package: 'flutter_credit_card',
               ),
             );
 
@@ -345,14 +345,10 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
         number = start + ' ' + stripped.substring(stripped.length - 4);
       } else if (stripped.length > 8) {
         final String middle = number
-            .substring(4, number.length - 5)
+            .substring(0, number.length - 5)
             .trim()
             .replaceAll(RegExp(r'\d'), '*');
-        number = stripped.substring(0, 4) +
-            ' ' +
-            middle +
-            ' ' +
-            stripped.substring(stripped.length - 4);
+        number = middle + ' ' + stripped.substring(stripped.length - 4);
       }
     }
     return CardBackground(
@@ -367,69 +363,41 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          if (widget.bankName.isNotNullAndNotEmpty)
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16, top: 16),
-                child: Text(
-                  widget.bankName!,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: defaultTextStyle,
-                ),
-              ),
-            ),
-          Expanded(
-            flex: widget.isChipVisible ? 1 : 0,
+          Container(
+            margin: const EdgeInsets.only(top: 7),
+            height: 63,
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                if (widget.isChipVisible)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Image.asset(
-                      'icons/chip.png',
-                      package: 'flutter_credit_card',
-                      color: widget.chipColor,
-                      scale: 1,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Text(
+                    widget.cardName,
+                    style: const TextStyle(
+                        fontSize: 14.0, fontWeight: FontWeight.bold),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Image.asset(
+                    'assets/mastercard.png',
+                    height: 48,
+                    width: 48,
+                  ),
+                ),
               ],
             ),
           ),
-          const SizedBox(height: 10),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 16),
               child: Text(
-                widget.cardNumber.isEmpty ? 'XXXX XXXX XXXX XXXX' : number,
-                style: widget.textStyle ?? defaultTextStyle,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    widget.labelValidThru,
-                    style: widget.textStyle ??
-                        defaultTextStyle.copyWith(fontSize: 7),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    widget.expiryDate.isEmpty
-                        ? widget.labelExpiredDate
-                        : widget.expiryDate,
-                    style: widget.textStyle ?? defaultTextStyle,
-                  ),
-                ],
+                widget.cardNumber.isEmpty ? '**** **** **** XXXX' : number,
+                style: const TextStyle(
+                    color: AppColors.darkBlueGrey,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -448,13 +416,38 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                           : widget.cardHolderName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: widget.textStyle ?? defaultTextStyle,
+                      style: const TextStyle(
+                        color: AppColors.darkBlueGrey,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-                widget.cardType != null
-                    ? getCardTypeImage(widget.cardType)
-                    : getCardTypeIcon(widget.cardNumber),
+                Column(
+                  children: <Widget>[
+                    const Text(
+                      'Exp Date:',
+                      style: TextStyle(
+                        color: AppColors.darkBlueGrey,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      widget.expiryDate.isEmpty
+                          ? widget.labelExpiredDate
+                          : widget.expiryDate,
+                      style: const TextStyle(
+                        color: AppColors.darkBlueGrey,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -467,16 +460,6 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   /// Builds a back container containing cvv
   ///
   Widget _buildBackContainer() {
-    final TextStyle defaultTextStyle =
-        Theme.of(context).textTheme.titleLarge!.merge(
-              const TextStyle(
-                color: Colors.black,
-                fontFamily: 'halter',
-                fontSize: 16,
-                package: 'flutter_credit_card',
-              ),
-            );
-
     final String cvv = widget.obscureCardCvv
         ? widget.cvvCode.replaceAll(RegExp(r'\d'), '*')
         : widget.cvvCode;
@@ -529,7 +512,10 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                                   : 'XXX'
                               : cvv,
                           maxLines: 1,
-                          style: widget.textStyle ?? defaultTextStyle,
+                          style: const TextStyle(
+                              color: AppColors.darkBlueGrey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -895,4 +881,17 @@ enum CardType {
   discover,
   elo,
   hipercard,
+  mada
 }
+
+Map<Enum, String> cardTypeNames = {
+  CardType.otherBrand: '',
+  CardType.mastercard: 'Master Card',
+  CardType.visa: 'Visa',
+  CardType.americanExpress: 'Amercian Express',
+  CardType.unionpay: 'Union Pay',
+  CardType.discover: 'Discover',
+  CardType.elo: 'Elo',
+  CardType.hipercard: 'Hiper Card',
+  CardType.mada: 'Mada',
+};

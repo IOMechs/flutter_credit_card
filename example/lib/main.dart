@@ -2,6 +2,7 @@ import 'package:example/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(MySample());
 
@@ -40,6 +41,7 @@ class MySampleState extends State<MySample> {
       title: 'Flutter Credit Card View Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textTheme: GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
@@ -59,24 +61,22 @@ class MySampleState extends State<MySample> {
                   height: 30,
                 ),
                 CreditCardWidget(
-                  glassmorphismConfig:
-                      useGlassMorphism ? Glassmorphism.defaultConfig() : null,
+                  cardName: cardTypeNames[CardType.mastercard] ?? 'mastercard',
+                  isChipVisible: false,
+                  glassmorphismConfig: null,
                   cardNumber: cardNumber,
                   expiryDate: expiryDate,
                   cardHolderName: cardHolderName,
                   cvvCode: cvvCode,
                   bankName: 'Axis Bank',
-                  frontCardBorder:
-                      !useGlassMorphism ? Border.all(color: Colors.grey) : null,
-                  backCardBorder:
-                      !useGlassMorphism ? Border.all(color: Colors.grey) : null,
+                  frontCardBorder: null,
+                  backCardBorder: null,
                   showBackView: isCvvFocused,
                   obscureCardNumber: true,
                   obscureCardCvv: true,
                   isHolderNameVisible: true,
-                  cardBgColor: AppColors.cardBgColor,
-                  backgroundImage:
-                      useBackgroundImage ? 'assets/card_bg.png' : null,
+                  cardBgColor: Color.fromARGB(255, 235, 168, 168),
+                  backgroundImage: 'assets/creditCardBackground.png',
                   isSwipeGestureEnabled: true,
                   onCreditCardWidgetChange:
                       (CreditCardBrand creditCardBrand) {},
@@ -216,7 +216,7 @@ class MySampleState extends State<MySample> {
                                 begin: Alignment(-1, -4),
                                 end: Alignment(1, 4),
                               ),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(21),
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             width: double.infinity,
