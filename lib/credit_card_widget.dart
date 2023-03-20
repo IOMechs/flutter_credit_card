@@ -22,43 +22,46 @@ const Map<CardType, String> CardTypeIconAsset = <CardType, String>{
 
 class CreditCardWidget extends StatefulWidget {
   /// A widget showcasing credit card UI.
-  const CreditCardWidget({
-    Key? key,
-    required this.cardNumber,
-    required this.expiryDate,
-    required this.cardHolderName,
-    required this.cvvCode,
-    required this.showBackView,
-    this.bankName,
-    this.animationDuration = const Duration(milliseconds: 500),
-    this.height,
-    this.width,
-    this.textStyle,
-    this.cardBgColor = const Color(0xff1b447b),
-    this.obscureCardNumber = true,
-    this.obscureCardCvv = true,
-    this.labelCardHolder = 'CARD HOLDER',
-    this.labelExpiredDate = 'MM/YY',
-    this.labelValidThru = 'VALID\nTHRU',
-    this.cardType,
-    this.isHolderNameVisible = false,
-    this.backgroundImage,
-    this.backgroundNetworkImage,
-    this.glassmorphismConfig,
-    this.isChipVisible = true,
-    this.isSwipeGestureEnabled = true,
-    this.customCardTypeIcons = const <CustomCardTypeIcon>[],
-    required this.onCreditCardWidgetChange,
-    this.padding = AppConstants.creditCardPadding,
-    this.chipColor,
-    this.frontCardBorder,
-    this.backCardBorder,
-    this.obscureInitialCardNumber = false,
-    this.cardName = '',
-  }) : super(key: key);
+  const CreditCardWidget(
+      {Key? key,
+      required this.cardNumber,
+      required this.expiryDate,
+      required this.cardHolderName,
+      required this.cvvCode,
+      required this.showBackView,
+      this.bankName,
+      this.animationDuration = const Duration(milliseconds: 500),
+      this.height,
+      this.width,
+      this.textStyle,
+      this.cardBgColor = const Color(0xff1b447b),
+      this.obscureCardNumber = true,
+      this.obscureCardCvv = true,
+      this.labelCardHolder = 'CARD HOLDER',
+      this.labelExpiredDate = 'MM/YY',
+      this.labelValidThru = 'VALID\nTHRU',
+      this.cardType,
+      this.isHolderNameVisible = false,
+      this.backgroundImage,
+      this.backgroundNetworkImage,
+      this.glassmorphismConfig,
+      this.isChipVisible = true,
+      this.isSwipeGestureEnabled = true,
+      this.customCardTypeIcons = const <CustomCardTypeIcon>[],
+      required this.onCreditCardWidgetChange,
+      this.padding = AppConstants.creditCardPadding,
+      this.chipColor,
+      this.frontCardBorder,
+      this.backCardBorder,
+      this.obscureInitialCardNumber = false,
+      this.cardName = '',
+      this.cardTypeIcon = ''})
+      : super(key: key);
 
   /// A string indicating number on the card.
   final String cardNumber;
+
+  final String cardTypeIcon;
 
   /// A string indicating expiry date for the card.
   final String expiryDate;
@@ -381,7 +384,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: Image.asset(
-                    'assets/mastercard.png',
+                    widget.cardTypeIcon,
                     height: 48,
                     width: 48,
                   ),
