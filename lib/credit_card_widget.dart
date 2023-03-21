@@ -363,98 +363,101 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       width: widget.width,
       padding: widget.padding,
       border: widget.frontCardBorder,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.only(top: 7),
-            height: 63,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Text(
-                    widget.cardName,
-                    style: const TextStyle(
-                        fontSize: 14.0, fontWeight: FontWeight.bold),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(top: 7),
+              height: 63,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      widget.cardName,
+                      style: const TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Image.asset(
-                    widget.cardTypeIcon,
-                    height: 48,
-                    width: 48,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Image.asset(
+                      widget.cardTypeIcon,
+                      height: 48,
+                      width: 48,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: Text(
-                widget.cardNumber.isEmpty ? '**** **** **** XXXX' : number,
-                style: const TextStyle(
-                    color: AppColors.darkBlueGrey,
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold),
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Visibility(
-                  visible: widget.isHolderNameVisible,
-                  child: Expanded(
-                    child: Text(
-                      widget.cardHolderName.isEmpty
-                          ? widget.labelCardHolder
-                          : widget.cardHolderName,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.darkBlueGrey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Text(
+                  widget.cardNumber.isEmpty ? '**** **** **** XXXX' : number,
+                  style: const TextStyle(
+                      color: AppColors.darkBlueGrey,
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Visibility(
+                    visible: widget.isHolderNameVisible,
+                    child: Expanded(
+                      child: Text(
+                        widget.cardHolderName.isEmpty
+                            ? widget.labelCardHolder
+                            : widget.cardHolderName,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: AppColors.darkBlueGrey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Column(
-                  children: <Widget>[
-                    const Text(
-                      'Exp Date:',
-                      style: TextStyle(
-                        color: AppColors.darkBlueGrey,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+                  Column(
+                    children: <Widget>[
+                      const Text(
+                        'Exp Date:',
+                        style: TextStyle(
+                          color: AppColors.darkBlueGrey,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      widget.expiryDate.isEmpty
-                          ? widget.labelExpiredDate
-                          : widget.expiryDate,
-                      style: const TextStyle(
-                        color: AppColors.darkBlueGrey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                      const SizedBox(width: 5),
+                      Text(
+                        widget.expiryDate.isEmpty
+                            ? widget.labelExpiredDate
+                            : widget.expiryDate,
+                        style: const TextStyle(
+                          color: AppColors.darkBlueGrey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
