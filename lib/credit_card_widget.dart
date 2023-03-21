@@ -364,7 +364,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       padding: widget.padding,
       border: widget.frontCardBorder,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
