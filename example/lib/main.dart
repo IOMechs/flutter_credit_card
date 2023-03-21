@@ -61,41 +61,33 @@ class MySampleState extends State<MySample> {
                   height: 30,
                 ),
                 CreditCardWidget(
-                  cardName: cardTypeNames[CardType.mastercard] ?? 'mastercard',
-                  isChipVisible: false,
-                  glassmorphismConfig: null,
-                  cardNumber: cardNumber,
-                  expiryDate: expiryDate,
-                  cardHolderName: cardHolderName,
-                  cvvCode: cvvCode,
-                  bankName: 'Axis Bank',
-                  frontCardBorder: null,
-                  backCardBorder: null,
-                  showBackView: isCvvFocused,
+                  labelCardHolder: "Adnan",
+                  cardName: 'Master Card',
+                  isHolderNameVisible: true,
+                  onCreditCardWidgetChange: ((p0) {}),
+                  padding: 0.0,
+                  isChipVisible: true,
+                  chipColor: Colors.transparent,
+                  cardNumber: '4111 1111 1111 1111',
+                  expiryDate: '10/22',
+                  cardHolderName: 'Adnan Sameer',
+                  cvvCode: '123',
+                  showBackView: false,
+                  cardBgColor: Colors.white,
+                  backgroundImage: "assets/images/creditCardBackground.png",
                   obscureCardNumber: true,
                   obscureCardCvv: true,
-                  isHolderNameVisible: true,
-                  cardBgColor: Color.fromARGB(255, 235, 168, 168),
-                  backgroundImage: 'assets/creditCardBackground.png',
-                  isSwipeGestureEnabled: true,
-                  onCreditCardWidgetChange:
-                      (CreditCardBrand creditCardBrand) {},
-                  customCardTypeIcons: <CustomCardTypeIcon>[
-                    CustomCardTypeIcon(
-                      cardType: CardType.mastercard,
-                      cardImage: Image.asset(
-                        'assets/mastercard.png',
-                        height: 48,
-                        width: 48,
-                      ),
-                    ),
-                  ],
+                  cardType: CardType.mastercard,
+                  cardTypeIcon: "assets/mastercard.png",
                 ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
                       children: <Widget>[
                         CreditCardForm(
+                          cvvValidationMessage: 'Invalid Cvv',
+                          dateValidationMessage: 'Invalid Expiry',
+                          numberValidationMessage: 'Invalid Card Number',
                           formKey: formKey,
                           obscureCvv: true,
                           obscureNumber: true,
@@ -108,36 +100,173 @@ class MySampleState extends State<MySample> {
                           expiryDate: expiryDate,
                           themeColor: Colors.blue,
                           textColor: Colors.white,
-                          cardNumberDecoration: InputDecoration(
-                            labelText: 'Number',
-                            hintText: 'XXXX XXXX XXXX XXXX',
-                            hintStyle: const TextStyle(color: Colors.white),
-                            labelStyle: const TextStyle(color: Colors.white),
-                            focusedBorder: border,
-                            enabledBorder: border,
+                          cardNumberDecoration: const InputDecoration(
+                            errorStyle: TextStyle(
+                                color: AppColors.rosyPink, height: 0.7),
+                            errorMaxLines: 1,
+                            filled: true,
+                            fillColor: Colors.transparent,
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: AppColors.sky)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide:
+                                    BorderSide(color: AppColors.oceanBlue)),
+                            hintStyle: TextStyle(color: AppColors.sky),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.rosyPink),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.rosyPink),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.sky),
+                            ),
+                            contentPadding: EdgeInsets.only(
+                                top: 20.0, left: 20.0, right: 20.0),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.sky),
+                            ),
+                            hintText: 'Card Number',
                           ),
-                          expiryDateDecoration: InputDecoration(
-                            hintStyle: const TextStyle(color: Colors.white),
-                            labelStyle: const TextStyle(color: Colors.white),
-                            focusedBorder: border,
-                            enabledBorder: border,
-                            labelText: 'Expired Date',
-                            hintText: 'XX/XX',
+                          expiryDateDecoration: const InputDecoration(
+                            errorStyle: TextStyle(
+                                color: AppColors.rosyPink, height: 0.7),
+                            errorMaxLines: 1,
+                            filled: true,
+                            fillColor: Colors.transparent,
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: AppColors.sky)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide:
+                                    BorderSide(color: AppColors.oceanBlue)),
+                            hintStyle: TextStyle(color: AppColors.sky),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.rosyPink),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.rosyPink),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.sky),
+                            ),
+                            contentPadding: EdgeInsets.only(
+                                top: 20.0, left: 20.0, right: 20.0),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.sky),
+                            ),
+                            // labelText: 'Number',
+                            hintText: 'Expiry',
+                            // labelStyle: const TextStyle(color: Colors.white),
+                            // focusedBorder: border,
+                            // enabledBorder: border,
                           ),
-                          cvvCodeDecoration: InputDecoration(
-                            hintStyle: const TextStyle(color: Colors.white),
-                            labelStyle: const TextStyle(color: Colors.white),
-                            focusedBorder: border,
-                            enabledBorder: border,
-                            labelText: 'CVV',
-                            hintText: 'XXX',
+                          cvvCodeDecoration: const InputDecoration(
+                            errorStyle: TextStyle(
+                                color: AppColors.rosyPink, height: 0.7),
+                            errorMaxLines: 1,
+                            filled: true,
+                            fillColor: Colors.transparent,
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: AppColors.sky)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide:
+                                    BorderSide(color: AppColors.oceanBlue)),
+                            hintStyle: TextStyle(color: AppColors.sky),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.rosyPink),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.rosyPink),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.sky),
+                            ),
+                            contentPadding: EdgeInsets.only(
+                                top: 20.0, left: 20.0, right: 20.0),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.sky),
+                            ),
+                            // labelText: 'Number',
+                            hintText: 'Cvc/Ccv',
+                            // labelStyle: const TextStyle(color: Colors.white),
+                            // focusedBorder: border,
+                            // enabledBorder: border,
                           ),
-                          cardHolderDecoration: InputDecoration(
-                            hintStyle: const TextStyle(color: Colors.white),
-                            labelStyle: const TextStyle(color: Colors.white),
-                            focusedBorder: border,
-                            enabledBorder: border,
-                            labelText: 'Card Holder',
+                          cardHolderDecoration: const InputDecoration(
+                            errorStyle: TextStyle(
+                                color: AppColors.rosyPink, height: 0.7),
+                            errorMaxLines: 1,
+                            filled: true,
+                            fillColor: Colors.transparent,
+                            disabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: AppColors.sky)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide:
+                                    BorderSide(color: AppColors.oceanBlue)),
+                            hintStyle: TextStyle(color: AppColors.sky),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.rosyPink),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.rosyPink),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.sky),
+                            ),
+                            contentPadding: EdgeInsets.only(
+                                top: 20.0, left: 20.0, right: 20.0),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              borderSide: BorderSide(color: AppColors.sky),
+                            ),
+                            hintText: 'Card Number',
                           ),
                           onCreditCardModelChange: onCreditCardModelChange,
                         ),
