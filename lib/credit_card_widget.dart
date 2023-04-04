@@ -55,7 +55,8 @@ class CreditCardWidget extends StatefulWidget {
       this.backCardBorder,
       this.obscureInitialCardNumber = false,
       this.cardName = '',
-      this.cardTypeIcon = ''})
+      this.cardTypeIcon = '',
+      this.cardIconSize = 68})
       : super(key: key);
 
   /// A string indicating number on the card.
@@ -163,6 +164,9 @@ class CreditCardWidget extends StatefulWidget {
 
   /// Provides border at back of credit card widget.
   final BoxBorder? backCardBorder;
+
+  /// Provides size to the front top right card icon of credit card widget.
+  final double? cardIconSize;
 
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
@@ -385,8 +389,8 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                   Padding(
                     padding: const EdgeInsets.only(right: 16.0),
                     child: Container(
-                      height: 80,
-                      width: 80,
+                      height: widget.cardIconSize,
+                      width: widget.cardIconSize,
                       child:
                           Image.asset(widget.cardTypeIcon, fit: BoxFit.contain),
                     ),
