@@ -370,7 +370,6 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(top: 7),
-              height: 63,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -385,10 +384,11 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
                   ),
                   Padding(
                     padding: const EdgeInsets.only(right: 16.0),
-                    child: Image.asset(
-                      widget.cardTypeIcon,
-                      height: 48,
-                      width: 48,
+                    child: Container(
+                      height: 80,
+                      width: 80,
+                      child:
+                          Image.asset(widget.cardTypeIcon, fit: BoxFit.contain),
                     ),
                   ),
                 ],
