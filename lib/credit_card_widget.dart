@@ -56,7 +56,8 @@ class CreditCardWidget extends StatefulWidget {
       this.obscureInitialCardNumber = false,
       this.cardName = '',
       this.cardTypeIcon = '',
-      this.cardIconSize = 68})
+      this.cardIconSize = 68,
+      this.showIconOnBackSide = false})
       : super(key: key);
 
   /// A string indicating number on the card.
@@ -167,6 +168,9 @@ class CreditCardWidget extends StatefulWidget {
 
   /// Provides size to the front top right card icon of credit card widget.
   final double? cardIconSize;
+
+  /// Provides view to show card icon on card backside.
+  final bool showIconOnBackSide;
 
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
@@ -484,66 +488,58 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
       padding: widget.padding,
       border: widget.backCardBorder,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Container(
-              margin: const EdgeInsets.only(top: 16),
-              height: 48,
-              color: Colors.black,
-            ),
+          Container(
+            margin: const EdgeInsets.only(top: 16),
+            height: 48,
+            color: Colors.black,
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              margin: const EdgeInsets.only(top: 16),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    flex: 9,
-                    child: Container(
-                      height: 48,
-                      color: Colors.white70,
-                    ),
+          Container(
+            margin: const EdgeInsets.only(top: 16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  flex: 9,
+                  child: Container(
+                    height: 48,
+                    color: Colors.white70,
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text(
-                          widget.cvvCode.isEmpty
-                              ? isAmex
-                                  ? 'XXXX'
-                                  : 'XXX'
-                              : cvv,
-                          maxLines: 1,
-                          style: const TextStyle(
-                              color: AppColors.darkBlueGrey,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        widget.cvvCode.isEmpty
+                            ? isAmex
+                                ? 'XXXX'
+                                : 'XXX'
+                            : cvv,
+                        maxLines: 1,
+                        style: const TextStyle(
+                            color: AppColors.darkBlueGrey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: Align(
+          if (widget.showIconOnBackSide)
+            Align(
               alignment: Alignment.bottomRight,
               child: Padding(
                   padding:
                       const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                   child: Image.asset(widget.cardTypeIcon)),
             ),
-          ),
         ],
       ),
     );
