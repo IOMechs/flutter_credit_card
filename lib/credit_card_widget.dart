@@ -57,7 +57,8 @@ class CreditCardWidget extends StatefulWidget {
       this.cardName = '',
       this.cardTypeIcon = '',
       this.cardIconSize = 68,
-      this.showIconOnBackSide = false})
+      this.showIconOnBackSide = false,
+      this.cardHintText = '**** **** **** XXXX'})
       : super(key: key);
 
   /// A string indicating number on the card.
@@ -171,6 +172,9 @@ class CreditCardWidget extends StatefulWidget {
 
   /// Provides view to show card icon on card backside.
   final bool showIconOnBackSide;
+
+  //Text shown when card number is empty
+  final String cardHintText;
 
   @override
   _CreditCardWidgetState createState() => _CreditCardWidgetState();
@@ -406,7 +410,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
               child: Padding(
                 padding: const EdgeInsets.only(left: 16),
                 child: Text(
-                  widget.cardNumber.isEmpty ? '**** **** **** XXXX' : number,
+                  widget.cardNumber.isEmpty ? widget.cardHintText : number,
                   style: const TextStyle(
                       color: AppColors.darkBlueGrey,
                       fontSize: 26,
@@ -888,7 +892,7 @@ enum CardType {
   mada
 }
 
-Map<Enum, String> cardTypeNames = {
+Map<Enum, String> cardTypeNames = <Enum, String>{
   CardType.otherBrand: '',
   CardType.mastercard: 'Master Card',
   CardType.visa: 'Visa',
